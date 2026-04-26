@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="10-дневное автопутешествие на озеро Тургояк. Маршрут Южа → Тургояк → Южа. 2650 км по Уралу.">
+    <meta property="og:title" content="Путешествие на озеро Тургояк 2024">
+    <meta property="og:description" content="10 дней • 2650 км • Урал. Кристально чистая вода, сосны, горы.">
+    <meta property="og:type" content="website">
+    <title>Тургояк 2024 — Путешествие на Урал</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 8 L56 48 L8 48 Z' fill='%232D6A4F'/%3E%3Cpath d='M32 16 L48 44 L16 44 Z' fill='%23FEFAE0'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --forest-dark: #1B4332;
+            --forest: #2D6A4F;
+            --forest-light: #40916C;
+            --water-dark: #0077B6;
+            --water: #00B4D8;
+            --water-light: #90E0EF;
+            --stone: #6C757D;
+            --sand: #D4A373;
+            --bg-cream: #FEFAE0;
+            --text-dark: #2B2D42;
+            --transition: 0.3s ease;
+            --radius-lg: 25px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--forest-dark);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #preloader .loader-icon {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        #preloader span {
+            color: #fff;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(27, 67, 50, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0.7rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition);
+            flex-wrap: wrap;
+        }
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-decoration: none;
+            white-space: nowrap;
+            z-index: 1001;
+        }
+        .header .logo svg {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+        .header nav {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .header nav a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            padding: 0.45rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .header nav a:hover,
+        .header nav a:focus {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            outline: none;
+        }
+        .burger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            z-index: 1001;
+        }
+        .burger span {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: #fff;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        .burger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .burger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        @media (max-width: 1024px) {
+            .burger {
+                display: flex;
+            }
+            .header nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(27, 67, 50, 0.97);
+                flex-direction: column;
+                padding: 5rem 1.5rem 1.5rem;
+                gap: 0.3rem;
+                transition: right 0.4s ease;
+                overflow-y: auto;
+            }
+            .header nav.open {
+                right: 0;
+            }
+            .header nav a {
+                font-size: 1rem;
+                padding: 0.7rem 1rem;
+                display: block;
+                border-radius: 12px;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(27, 67, 50, 0.8) 0%, rgba(0, 119, 182, 0.45) 100%),
+                url('./top%20image.jpg') center/cover no-repeat;
+            background-color: #1B4332;
+            text-align: center;
+            padding: 6rem 2rem 3rem;
+            overflow: hidden;
+        }
+        .hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: #fff;
+            font-weight: 800;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.6rem;
+            font-weight: 400;
+        }
+        .hero .participants {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+        .hero .btn-start {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--water), var(--water-dark));
+            color: #fff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all var(--transition);
+            box-shadow: 0 8px 30px rgba(0, 119, 182, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        .hero .btn-start:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 40px rgba(0, 119, 182, 0.6);
+        }
+        .hero .svg-tree-left,
+        .hero .svg-tree-right {
+            position: absolute;
+            bottom: 80px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hero .svg-tree-left {
+            left: 2%;
+            width: clamp(80px, 15vw, 180px);
+        }
+        .hero .svg-tree-right {
+            right: 2%;
+            width: clamp(70px, 13vw, 160px);
+        }
+        .hero .hero-wave {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .floating-leaf {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        .floating-leaf:nth-child(1) {
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+        .floating-leaf:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 1.2s;
+        }
+        .floating-leaf:nth-child(3) {
+            top: 55%;
+            left: 5%;
+            animation-delay: 2.4s;
+        }
+        .floating-leaf:nth-child(4) {
+            top: 60%;
+            right: 7%;
+            animation-delay: 0.6s;
+        }
+        .floating-leaf:nth-child(5) {
+            top: 35%;
+            left: 75%;
+            animation-delay: 1.8s;
+        }
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-12px) rotate(4deg);
+            }
+            75% {
+                transform: translateY(-6px) rotate(-3deg);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+        .section h2 {
+            text-align: center;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--forest-dark);
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--water);
+            border-radius: 4px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Wave divider */
+        .wave-divider {
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .wave-divider.bottom {
+            top: auto;
+            bottom: -2px;
+        }
+
+        /* Info cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+        .stone-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f5f5f0 100%);
+            border-radius: 30px 25px 28px 22px;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.08), -6px -6px 16px #ffffff,
+                inset 2px 2px 5px rgba(255, 255, 255, 0.8);
+            border: 2px solid #dde1d7;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: all 0.35s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .stone-card:hover {
+            transform: translateY(-8px) rotate(0.3deg);
+            box-shadow: 14px 14px 30px rgba(0, 0, 0, 0.12), -10px -10px 24px #ffffff, 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--sand);
+        }
+        .stone-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .stone-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--forest-dark);
+        }
+        .stone-card .label {
+            font-size: 0.9rem;
+            color: var(--stone);
+            margin-top: 0.3rem;
+        }
+
+        /* Map */
+        .map-wrapper {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 5px solid var(--forest);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            background: #e8e4d9;
+        }
+        @media (max-width: 768px) {
+            #map {
+                height: 400px;
+            }
+        }
+
+        /* Days timeline */
+        .days-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .day-card {
+            background: #fff;
+            border-radius: var(--radius-md);
+            padding: 1.8rem;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid var(--forest);
+            transition: all var(--transition);
+            cursor: default;
+        }
+        .day-card:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(-3px);
+        }
+        .day-card.water-element {
+            border-left: 6px solid var(--water-dark);
+            background: linear-gradient(135deg, #f0faff, #fff);
+        }
+        .day-card.forest-element {
+            border-left: 6px solid var(--forest-light);
+            background: linear-gradient(135deg, #f4faf6, #fff);
+        }
+        .day-card h3 {
+            color: var(--forest-dark);
+            margin-bottom: 0.6rem;
+            font-size: 1.2rem;
+        }
+        .day-card .day-meta {
+            color: var(--stone);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+        .day-card .timeline-item {
+            display: flex;
+            gap: 0.8rem;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            align-items: flex-start;
+        }
+        .day-card .timeline-item .time {
+            font-weight: 700;
+            color: var(--water-dark);
+            min-width: 70px;
+            flex-shrink: 0;
+        }
+        .day-card .cost {
+            margin-top: 1rem;
+            font-weight: 700;
+            color: var(--forest);
+            font-size: 1rem;
+            background: rgba(45, 106, 79, 0.08);
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* Attractions */
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .attraction-card {
+            background: #fff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all var(--transition);
+            border: 2px solid transparent;
+        }
+        .attraction-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.15);
+            border-color: var(--sand);
+        }
+        .attraction-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            background: #e0dcd0;
+        }
+        .attraction-card .card-body {
+            padding: 1.5rem;
+        }
+        .attraction-card h3 {
+            color: var(--forest-dark);
+            margin-bottom: 0.5rem;
+        }
+        .attraction-card .coords {
+            font-size: 0.85rem;
+            color: var(--stone);
+            margin-bottom: 0.5rem;
+        }
+        .attraction-card .price {
+            font-weight: 700;
+            color: var(--water-dark);
+            margin-bottom: 1rem;
+        }
+        .attraction-card .btn-sm {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: var(--forest);
+            color: #fff;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all var(--transition);
+            cursor: pointer;
+            border: none;
+            margin-right: 0.4rem;
+        }
+        .attraction-card .btn-sm:hover {
+            background: var(--forest-dark);
+        }
+
+        /* Albums */
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .album-card {
+            background: #fff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            transition: all var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        .album-card:hover {
+            border-color: var(--forest-light);
+            transform: translateY(-4px);
+        }
+        .album-card .album-cover {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #e8e4d9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--stone);
+            font-size: 3rem;
+        }
+        .album-card .album-info {
+            padding: 1rem;
+        }
+        .album-card .album-info h4 {
+            color: var(--forest-dark);
+            margin-bottom: 0.3rem;
+        }
+        .album-card .album-info .count {
+            font-size: 0.85rem;
+            color: var(--stone);
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: var(--forest);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--forest-dark);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--forest);
+            color: var(--forest);
+        }
+        .btn-outline:hover {
+            background: var(--forest);
+            color: #fff;
+        }
+
+        /* Upload zone */
+        .upload-zone {
+            border: 3px dashed var(--forest);
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            background: rgba(64, 145, 108, 0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 1rem 0;
+        }
+        .upload-zone.dragover {
+            background: rgba(64, 145, 108, 0.2);
+            border-color: var(--water);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 119, 182, 0.2);
+        }
+        .upload-zone svg {
+            width: 50px;
+            height: 50px;
+            color: var(--forest);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox .lb-counter {
+            color: #fff;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+        .lightbox .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10001;
+            background: none;
+            border: none;
+        }
+        .lightbox .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 1rem;
+            z-index: 10001;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .lightbox .lb-nav:hover {
+            opacity: 1;
+        }
+        .lightbox .lb-prev {
+            left: 10px;
+        }
+        .lightbox .lb-next {
+            right: 10px;
+        }
+
+        /* Budget */
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+        }
+        .budget-table th,
+        .budget-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .budget-table th {
+            background: var(--forest);
+            color: #fff;
+            font-weight: 600;
+        }
+        .budget-table tr:last-child td {
+            font-weight: 700;
+            background: rgba(45, 106, 79, 0.06);
+        }
+        .budget-chart {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        .budget-bar {
+            height: 28px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            padding: 0 0.8rem;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: all var(--transition);
+        }
+        .budget-bar:hover {
+            transform: scaleY(1.3);
+        }
+
+        /* Checklist */
+        .accordion {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .accordion-item {
+            background: #fff;
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.8rem;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+        .accordion-header {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--forest-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fafaf7;
+            border: none;
+            width: 100%;
+            font-size: 1rem;
+            transition: all var(--transition);
+        }
+        .accordion-header:hover {
+            background: #f0f0ea;
+        }
+        .accordion-body {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+        .accordion-body.open {
+            max-height: 600px;
+            padding: 1rem 1.5rem;
+        }
+        .accordion-body label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.35rem 0;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .accordion-body input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--forest);
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--forest-dark);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            text-align: center;
+        }
+        .footer .footer-wave {
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+        }
+        .footer a {
+            color: var(--water-light);
+            text-decoration: none;
+        }
+        .footer .footer-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .footer .copyright {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--forest);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 900;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #back-to-top:hover {
+            background: var(--forest-dark);
+            transform: translateY(-4px);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .modal {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .modal .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--stone);
+        }
+        .photo-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .photo-preview-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .photo-preview-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+        .delete-photo-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(220, 53, 69, 0.9);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .photo-thumb-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 3rem 1rem;
+            }
+            .info-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .attractions-grid {
+                grid-template-columns: 1fr;
+            }
+            .albums-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .header {
+                padding: 0.5rem 1rem;
+            }
+            .day-card .timeline-item {
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+            .day-card .timeline-item .time {
+                min-width: auto;
+            }
+        }
+        @media (max-width: 480px) {
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            .albums-grid {
+                grid-template-columns: 1fr;
+            }
+            .budget-bar {
+                font-size: 0.7rem;
+                padding: 0 0.5rem;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-icon"></div>
+        <span>ТУРГОЯК 2024</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <a href="#" class="logo">
+            <svg viewBox="0 0 36 36"><polygon points="18,4 32,28 4,28" fill="#90E0EF"/><polygon points="18,10 27,24 9,24" fill="#fff"/></svg>
+            Тургояк 2024
+        </a>
+        <button class="burger" id="burger" aria-label="Меню">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="nav">
+            <a href="#map-section">Карта</a>
+            <a href="#route">Маршрут</a>
+            <a href="#attractions">Достопримечательности</a>
+            <a href="#albums">Альбомы</a>
+            <a href="#schedule">Расписание</a>
+            <a href="#budget">Бюджет</a>
+            <a href="#checklist">Чек-лист</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <svg class="svg-tree-left" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="55" y="30" width="10" height="170" fill="#3D2B1F" rx="3"/>
+            <polygon points="60,0 20,70 100,70" fill="#2D6A4F"/>
+            <polygon points="60,30 25,90 95,90" fill="#40916C"/>
+            <polygon points="60,55 30,110 90,110" fill="#52B788"/>
+        </svg>
+        <svg class="svg-tree-right" viewBox="0 0 110 190" xmlns="http://www.w3.org/2000/svg">
+            <rect x="50" y="25" width="8" height="165" fill="#3D2B1F" rx="3"/>
+            <polygon points="54,0 15,60 93,60" fill="#1B4332"/>
+            <polygon points="54,25 20,80 88,80" fill="#2D6A4F"/>
+            <polygon points="54,48 25,100 83,100" fill="#40916C"/>
+        </svg>
+        <svg class="floating-leaf" width="30" height="30" viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="14" ry="8" fill="#74C69D" transform="rotate(-20 15 15)"/></svg>
+        <svg class="floating-leaf" width="24" height="24" viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="12" ry="7" fill="#90E0EF" transform="rotate(25 15 15)"/></svg>
+        <svg class="floating-leaf" width="28" height="28" viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="13" ry="7" fill="#D4A373" transform="rotate(-35 15 15)"/></svg>
+        <svg class="floating-leaf" width="22" height="22" viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="11" ry="6" fill="#52B788" transform="rotate(15 15 15)"/></svg>
+        <svg class="floating-leaf" width="26" height="26" viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="12" ry="7" fill="#00B4D8" transform="rotate(-10 15 15)"/></svg>
+        <div class="hero-content">
+            <h1>Путешествие на озеро Тургояк</h1>
+            <p class="subtitle">10 дней • 2650 км • Урал</p>
+            <p class="participants">👨‍👩‍👧 Андрей, Наташа, Ира</p>
+            <a href="#map-section" class="btn-start">Начать путешествие</a>
+        </div>
+        <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="#FEFAE0"/>
+        </svg>
+    </section>
+
+    <!-- Info Cards -->
+    <section class="section" id="info">
+        <div class="container">
+            <h2>О поездке</h2>
+            <div class="info-cards">
+                <div class="stone-card"><div class="icon">🚗</div><div class="value">2 650 км</div><div class="label">Общий пробег</div></div>
+                <div class="stone-card"><div class="icon">📅</div><div class="value">10 дней</div><div class="label">Длительность</div></div>
+                <div class="stone-card"><div class="icon">⛽</div><div class="value">9 л/100 км</div><div class="label">Расход топлива</div></div>
+                <div class="stone-card"><div class="icon">💰</div><div class="value">26 213 ₽</div><div class="label">Бюджет на человека</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="section" id="map-section">
+        <div class="container">
+            <h2>Карта маршрута</h2>
+            <div class="map-wrapper">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Route by days -->
+    <section class="section" id="route" style="background:#f9f8f3;">
+        <div class="container">
+            <h2>Маршрут по дням</h2>
+            <div class="days-grid" id="days-container"></div>
+        </div>
+    </section>
+
+    <!-- Attractions -->
+    <section class="section" id="attractions">
+        <div class="container">
+            <h2>Достопримечательности</h2>
+            <div class="attractions-grid" id="attractions-container"></div>
+        </div>
+    </section>
+
+    <!-- Albums -->
+    <section class="section" id="albums" style="background:#f9f8f3;">
+        <div class="container">
+            <h2>Альбомы</h2>
+            <div style="text-align:center;margin-bottom:1.5rem;">
+                <button class="btn btn-primary" id="create-albums-btn">📸 Создать альбомы по дням</button>
+                <button class="btn btn-outline" id="export-albums-btn" style="margin-left:0.5rem;">📥 Экспорт</button>
+                <button class="btn btn-outline" id="import-albums-btn" style="margin-left:0.5rem;">📤 Импорт</button>
+                <input type="file" id="import-file-input" accept=".json" style="display:none;">
+            </div>
+            <div class="albums-grid" id="albums-grid"></div>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="section" id="schedule">
+        <div class="container">
+            <h2>Расписание (PDF)</h2>
+            <div class="days-grid" id="schedule-container"></div>
+        </div>
+    </section>
+
+    <!-- Budget -->
+    <section class="section" id="budget" style="background:#f9f8f3;">
+        <div class="container">
+            <h2>Бюджет</h2>
+            <table class="budget-table">
+                <thead><tr><th>Категория</th><th>Сумма</th><th>Детали</th></tr></thead>
+                <tbody>
+                    <tr><td>⛽ Топливо</td><td>12 640 ₽</td><td>2 650 км × 9 л/100км × 53 ₽</td></tr>
+                    <tr><td>🏕️ Проживание</td><td>14 900 ₽</td><td>Кемпинги, отели</td></tr>
+                    <tr><td>🍽️ Питание (кафе)</td><td>30 200 ₽</td><td>Завтраки, обеды, ужины</td></tr>
+                    <tr><td>🛒 Питание (продукты)</td><td>8 500 ₽</td><td>Продукты для готовки</td></tr>
+                    <tr><td>🎫 Экскурсии</td><td>7 200 ₽</td><td>Остров Веры, музей, пещеры</td></tr>
+                    <tr><td>📦 Прочее</td><td>5 200 ₽</td><td>Сувениры, парковки</td></tr>
+                    <tr><td><strong>ИТОГО</strong></td><td><strong>78 640 ₽</strong></td><td><strong>26 213 ₽ на человека</strong></td></tr>
+                </tbody>
+            </table>
+            <div class="budget-chart">
+                <span class="budget-bar" style="background:#2D6A4F;width:auto;">Топливо 16%</span>
+                <span class="budget-bar" style="background:#40916C;width:auto;">Проживание 19%</span>
+                <span class="budget-bar" style="background:#00B4D8;width:auto;">Питание 38%</span>
+                <span class="budget-bar" style="background:#0077B6;width:auto;">Экскурсии 9%</span>
+                <span class="budget-bar" style="background:#D4A373;width:auto;">Прочее 7%</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="section" id="checklist">
+        <div class="container">
+            <h2>Чек-лист</h2>
+            <div class="accordion" id="checklist-accordion"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <svg class="footer-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,40 C360,0 720,80 1080,40 C1260,20 1380,10 1440,20 L1440,80 L0,80 Z" fill="#1B4332"/>
+        </svg>
+        <div class="footer-contacts">
+            <span>🏕️ Кемпинг: +7 (900) 123-45-67</span>
+            <span>🏝️ Остров Веры: +7 (3513) 57-88-99</span>
+            <span>🥟 Музей пельменя: +7 (3513) 57-90-30</span>
+        </div>
+        <p class="copyright">© 2024 Путешествие на Тургояк. Андрей, Наташа, Ира. Все права защищены.</p>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="back-to-top" aria-label="Наверх">↑</button>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" style="display:none;">
+        <button class="lb-close" id="lb-close">&times;</button>
+        <button class="lb-nav lb-prev" id="lb-prev">‹</button>
+        <img src="" alt="" id="lb-img">
+        <div class="lb-counter" id="lb-counter"></div>
+        <button class="lb-nav lb-next" id="lb-next">›</button>
+    </div>
+
+    <!-- Modal for album view -->
+    <div class="modal-overlay" id="album-modal" style="display:none;">
+        <div class="modal" id="album-modal-content">
+            <button class="modal-close" id="album-modal-close">&times;</button>
+            <h3 id="album-modal-title"></h3>
+            <div class="upload-zone" id="album-upload-zone">
+                <svg viewBox="0 0 50 50"><path d="M25 10 L25 35 M15 25 L25 10 L35 25 M10 38 L40 38" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+                <p>Перетащите фото сюда или кликните для выбора</p>
+                <input type="file" id="album-file-input" accept="image/*" multiple style="display:none;">
+            </div>
+            <div class="photo-preview-grid" id="album-photos-grid"></div>
+        </div>
+    </div>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=7003735c-0843-432a-a415-539663a3dd84&lang=ru_RU"></script>
+    <script>
+        // ============ PRELOADER ============
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 600);
+        });
+
+        // ============ BURGER MENU ============
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('nav');
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            nav.classList.toggle('open');
+        });
+        document.querySelectorAll('#nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                burger.classList.remove('active');
+                nav.classList.remove('open');
+            });
+        });
+
+        // ============ BACK TO TOP ============
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 500);
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ============ IMAGE FALLBACK ============
+        function imgFallback(img) {
+            img.onerror = null;
+            img.src =
+                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"%3E%3Crect fill="%23e8e4d9" width="400" height="300"/%3E%3Ctext x="200" y="155" text-anchor="middle" fill="%236C757D" font-size="16"%3EИзображение%3C/text%3E%3Ctext x="200" y="175" text-anchor="middle" fill="%236C757D" font-size="14"%3Eне загружено%3C/text%3E%3C/svg%3E';
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() { imgFallback(this); });
+                if (img.complete && img.naturalWidth === 0) imgFallback(img);
+            });
+        });
+
+        // ============ MAP ============
+        function initMap() {
+            try {
+                const mapContainer = document.getElementById('map');
+                if (!mapContainer) return;
+                ymaps.ready(function() {
+                    const map = new ymaps.Map('map', {
+                        center: [55.8, 55.5],
+                        zoom: 6,
+                        controls: ['zoomControl', 'fullscreenControl', 'typeSelector']
+                    });
+
+                    const points = [
+                        { coords: [56.5833, 42.0167], name: 'Южа (старт/финиш)',
+                            desc: 'Начало и конец путешествия', icon: '🏠', color: '#DC3545' },
+                        { coords: [56.1300, 47.2500], name: 'Чебоксары',
+                            desc: 'Остановка на ночёвку, набережная', icon: '🏙️', color: '#6C757D' },
+                        { coords: [55.0400, 59.0300], name: 'Сатка',
+                        desc: 'Кемпинг у реки Ай', icon: '🏕️', color: '#FD7E14' },
+                        { coords: [54.9501, 58.2503], name: 'Большие Айские Притёсы',
+                            desc: '100-метровые скалы над рекой Ай', icon: '🏔️', color: '#0077B6' },
+                        { coords: [54.9198, 58.2987], name: 'Сикияз-Тамак',
+                            desc: '43 карстовые пещеры. Вход: 200 ₽/чел', icon: '🕳️', color: '#0077B6' },
+                        { coords: [55.1692, 60.0953], name: 'Тургояк (кемпинг)',
+                            desc: 'Кемпинг "Лесная поляна", 1000 ₽/сутки', icon: '🏕️', color: '#FD7E14' },
+                        { coords: [55.1630, 60.0870], name: 'Остров Веры (причал)',
+                            desc: 'Мегалиты, дольмены, экскурсия 4500 ₽', icon: '🏝️', color: '#0077B6' },
+                        { coords: [55.0450, 60.1050], name: 'Музей пельменя',
+                            desc: 'Уральская кухня, дегустация', icon: '🥟', color: '#0077B6' },
+                        { coords: [55.1700, 59.6500], name: 'Таганай',
+                            desc: 'Национальный парк, пропуск 250 ₽/чел', icon: '🏔️', color: '#0077B6' },
+                        { coords: [56.3269, 44.0059], name: 'Нижний Новгород',
+                            desc: 'Кремль, Чкаловская лестница', icon: '🏙️', color: '#6C757D' },
+                    ];
+
+                    const routeCoords = points.map(p => p.coords);
+
+                    // Polyline
+                    const polyline = new ymaps.Polyline(routeCoords, {}, {
+                        strokeColor: '#2D6A4F',
+                        strokeWidth: 4,
+                        strokeOpacity: 0.8,
+                        strokeStyle: 'solid',
+                    });
+                    map.geoObjects.add(polyline);
+
+                    // Placemarks
+                    points.forEach((pt, i) => {
+                        const placemark = new ymaps.Placemark(pt.coords, {
+                            balloonContent: `<strong>${pt.icon} ${pt.name}</strong><br>${pt.desc}`,
+                            hintContent: pt.name,
+                        }, {
+                            preset: 'islands#circleIcon',
+                            iconColor: pt.color,
+                        });
+                        map.geoObjects.add(placemark);
+                    });
+
+                    map.setBounds(map.geoObjects.getBounds(), { checkZoomRange: true }).then(() => {
+                        if (map.getZoom() > 10) map.setZoom(10);
+                    });
+                });
+            } catch (e) {
+                console.warn('Ошибка инициализации карты:', e);
+                document.getElementById('map').innerHTML =
+                    '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#6C757D;font-size:1.2rem;">🗺️ Карта временно недоступна</div>';
+            }
+        }
+
+        // ============ DAYS DATA ============
+        const daysData = [
+            { day: 1, title: 'Южа → Чебоксары', km: '350 км', time: '5 часов', cost: '8 119 ₽', cls: '',
+                timeline: [
+                    { t: '07:30', d: 'Завтрак дома (яичница с беконом)' }, { t: '08:00', d: 'Выезд из Южи' },
+                    { t: '08:45', d: 'Заправка Лукойл' }, { t: '10:30', d: 'Остановка у д. Новоликеево' },
+                    { t: '12:00', d: 'Обед в кафе "У Митрича"' }, { t: '15:30', d: 'Прибытие в Чебоксары' },
+                    { t: '16:00', d: 'Заселение' }, { t: '17:00', d: 'Прогулка по набережной' },
+                    { t: '19:00', d: 'Ужин в "Пивном дворике"' }
+                ] },
+            { day: 2, title: 'Чебоксары → Сатка', km: '600 км', time: '8 часов', cost: '5 862–8 362 ₽',
+                cls: 'water-element', timeline: [
+                    { t: '07:00', d: 'Завтрак' }, { t: '08:00', d: 'Выезд' },
+                    { t: '11:00', d: 'Остановка в Казани (кофе)' }, { t: '13:30', d: 'Обед в кафе "Биляр"' },
+                    { t: '17:00', d: 'Фото у стелы "Граница Европа-Азия"' }, { t: '18:00', d: 'Прибытие в Сатку' },
+                    { t: '18:30', d: 'Заселение (кемпинг у реки Ай)' }
+                ] },
+            { day: 3, title: 'Сатка → Притёсы → Сикияз-Тамак', km: '80+150 км', time: 'Активный день', cost: '2 224 ₽',
+                cls: 'forest-element', timeline: [
+                    { t: '07:30', d: 'Завтрак на горелке' }, { t: '08:30', d: 'Выезд к Притёсам' },
+                    { t: '09:30-11:30', d: 'Прогулка к 100-метровым скалам над рекой Ай' },
+                    { t: '12:30', d: 'Выезд к пещерам Сикияз-Тамак' },
+                    { t: '13:30-16:30', d: 'Исследование 43 карстовых полостей' },
+                    { t: '17:30', d: 'Выезд на Тургояк' }, { t: '20:00', d: 'Прибытие, установка лагеря' }
+                ] },
+            { day: 4, title: 'Заезд на Тургояк', km: '150 км', time: '2.5 часа', cost: '2 866 ₽', cls: 'water-element',
+                timeline: [
+                    { t: '08:00', d: 'Завтрак на горелке' }, { t: '09:00', d: 'Выезд' },
+                    { t: '11:30', d: 'Прибытие в кемпинг "Лесная поляна"' },
+                    { t: '14:30-17:00', d: 'Купание (вода +18...+22°C)' }, { t: '18:30', d: 'Ужин (плов на горелке)' }
+                ] },
+            { day: 5, title: 'Остров Веры', km: 'Экскурсия', time: '4 часа', cost: '6 700 ₽', cls: 'forest-element',
+                timeline: [
+                    { t: '08:30', d: 'Выезд к причалу' }, { t: '09:30', d: 'Отплытие' },
+                    { t: '09:50-13:30', d: 'Экскурсия (мегалиты 6000 лет, дольмены, кромлехи)' },
+                    { t: '15:30-17:30', d: 'Подъём на скалу Крутики' }, { t: '19:30', d: 'Ужин (шашлык)' }
+                ] },
+            { day: 6, title: 'Миасс → Музей пельменя', km: '30 км', time: 'Гастро-день', cost: '7 193 ₽', cls: '',
+                timeline: [
+                    { t: '09:00', d: 'Выезд в Миасс' }, { t: '10:30-11:00', d: 'Экскурсия по музею пельменя' },
+                    { t: '11:00-13:00', d: 'Обед-дегустация (пельмени с лосятиной, со щукой)' },
+                    { t: '14:00', d: 'Возвращение на Тургояк' }
+                ] },
+            { day: 7, title: 'Таганай (трекинг)', km: '3 км пешком', time: 'Весь день', cost: '9 274 ₽',
+                cls: 'forest-element', timeline: [
+                    { t: '07:00', d: 'Завтрак' }, { t: '08:00', d: 'Выезд' },
+                    { t: '09:00', d: 'Визит-центр (пропуск 250 ₽/чел)' },
+                    { t: '09:30-12:30', d: 'Трекинг к Чёрной скале' }, { t: '16:00', d: 'Выезд в Златоуст' },
+                    { t: '16:30', d: 'Заселение в отель' }, { t: '19:00', d: 'Ужин в кафе "Уральские самоцветы"' }
+                ] },
+            { day: 8, title: 'Таганай → Чебоксары', km: '600 км', time: '8 часов', cost: '9 112 ₽', cls: 'water-element',
+                timeline: [
+                    { t: '08:00', d: 'Завтрак' }, { t: '09:00', d: 'Выезд' },
+                    { t: '12:00', d: 'Обед в кафе "Уральская изба"' }, { t: '19:00', d: 'Прибытие в Чебоксары' }
+                ] },
+            { day: 9, title: 'Чебоксары → Нижний Новгород', km: '250 км', time: '3.5 часа', cost: '5 925 ₽', cls: '',
+                timeline: [
+                    { t: '08:00', d: 'Завтрак' }, { t: '09:00', d: 'Выезд' },
+                    { t: '13:00-15:00', d: 'Прогулка (Кремль, набережная, Чкаловская лестница)' },
+                    { t: '15:00', d: 'Обед в кафе "Библиотека"' }, { t: '19:30', d: 'Ужин в ресторане "Пяткинъ"' }
+                ] },
+            { day: 10, title: 'Нижний Новгород → Южа 🏠', km: '200 км', time: '3 часа', cost: '1 854 ₽',
+                cls: 'forest-element', timeline: [
+                    { t: '08:00', d: 'Завтрак' }, { t: '09:00', d: 'Выезд' },
+                    { t: '12:00', d: 'Прибытие в Южу! Финиш путешествия!' }
+                ] },
+        ];
+
+        function renderDays() {
+            const container = document.getElementById('days-container');
+            if (!container) return;
+            container.innerHTML = daysData.map(d => `
+            <div class="day-card ${d.cls}">
+              <h3>День ${d.day}: ${d.title}</h3>
+              <div class="day-meta">🚗 ${d.km} | ⏱️ ${d.time}</div>
+              ${d.timeline.map(ti => `<div class="timeline-item"><span class="time">${ti.t}</span><span>${ti.d}</span></div>`).join('')}
+              <div class="cost">💰 Расходы: ${d.cost}</div>
+            </div>
+          `).join('');
+        }
+
+        // ============ ATTRACTIONS ============
+        const attractionsData = [
+            { name: 'Озеро Тургояк', desc: 'Кристально чистая вода, сосны, горы — визитная карточка путешествия.',
+                img: encodeURI('./images/turgoyak_lake.jpg.jpg'), coords: '55.1692, 60.0953', price: '' },
+            { name: 'Остров Веры', desc: 'Мегалиты, дольмены, кромлехи, петроглифы, легенды о «месте силы».',
+                img: encodeURI('./images/ostrov_very.jpg.jpg'), coords: '55.1630, 60.0870', price: 'Экскурсия: 4 500 ₽' },
+            { name: 'Большие Айские Притёсы', desc: '100-метровые скалы над рекой Ай. Вход 100 ₽.',
+                img: encodeURI('./images/pritesy.jpg.jpg'), coords: '54.9501, 58.2503', price: 'Вход: 100 ₽' },
+            { name: 'Сикияз-Тамак', desc: '43 карстовые пещеры. Обязателен фонарик!',
+                img: encodeURI('./images/sikiiaz.jpg.jpg'), coords: '54.9198, 58.2987', price: 'Вход: 200 ₽/чел' },
+            { name: 'Национальный парк Таганай', desc: 'Хребты, Чёрная скала, потрясающие виды.',
+                img: encodeURI('./images/taganay.jpg.jpg'), coords: '55.1700, 59.6500', price: 'Пропуск: 250 ₽/чел' },
+            { name: 'Музей пельменя', desc: 'Уральская кухня: пельмени с лосятиной, со щукой, чай с черёмухой.',
+                img: encodeURI('./images/museum_pelmen.jpg.jpg'), coords: '55.0450, 60.1050',
+            price: 'Экскурсия: 450 ₽/чел' },
+            { name: 'Граница Европа-Азия', desc: 'Стела на трассе М5 — знаковое место для фото.',
+                img: encodeURI('./images/Between%20Europe%20and%20Asia.jpg'), coords: '55.1000, 59.5000', price: '' },
+            { name: 'Чебоксары', desc: 'Набережная, Монумент Славы, чувашская кухня.',
+                img: encodeURI('./images/cheboksary.jpg.jpg'), coords: '56.1300, 47.2500', price: '' },
+            { name: 'Нижний Новгород', desc: 'Кремль, Чкаловская лестница, городецкая роспись.',
+                img: encodeURI('./images/nizhny_novgorod.jpg.jpg'), coords: '56.3269, 44.0059', price: '' },
+        ];
+
+        function renderAttractions() {
+            const container = document.getElementById('attractions-container');
+            if (!container) return;
+            container.innerHTML = attractionsData.map(a => `
+            <div class="attraction-card">
+              <img src="${a.img}" alt="${a.name}" onerror="imgFallback(this)" loading="lazy">
+              <div class="card-body">
+                <h3>${a.name}</h3>
+                <p>${a.desc}</p>
+                <div class="coords">📍 ${a.coords}</div>
+                ${a.price ? `<div class="price">${a.price}</div>` : ''}
+                <a href="#map-section" class="btn-sm" onclick="scrollToMap('${a.coords}')">🗺️ На карте</a>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        function scrollToMap(coords) {
+            document.getElementById('map-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ============ SCHEDULE (PDF) ============
+        const scheduleData = [
+            { day: 1, title: 'Южа → Чебоксары', items: [
+                    '07:00 — Завтрак: омлет с ветчиной и сыром', '08:00 — Выезд',
+                    '09:30 — Заправка АЗС «Татнефть»', '11:00 — Остановка Казань',
+                    '13:30 — Обед кафе «Биляр»', '17:00 — Фото-стоп стела «Граница Европа-Азия»',
+                    '18:00 — Прибытие в Сатку', '19:30 — Ужин кафе «Башня»', '22:30 — Отбой'
+                ] },
+            { day: 2, title: 'Чебоксары → Сатка', items: ['07:00 — Завтрак', '08:00 — Выезд',
+                    '13:30 — Обед кафе «Биляр»', '18:00 — Прибытие в Сатку', '18:30 — Заселение'
+                ] },
+            { day: 3, title: 'Притёсы → Сикияз-Тамак', items: ['07:30 — Завтрак на горелке',
+                    '09:30-11:30 — Прогулка к скалам', '13:30-16:30 — Исследование пещер', '20:00 — Прибытие на Тургояк'
+                ] },
+            { day: 4, title: 'Заезд на Тургояк', items: ['11:30 — Прибытие кемпинг «Лесная поляна»',
+                    '14:30-17:00 — Купание', '18:30 — Ужин (плов)'
+                ] },
+            { day: 5, title: 'Остров Веры', items: ['09:30 — Отплытие', '09:50-13:30 — Экскурсия по острову',
+                    '17:30 — Подъём на скалу Крутики'
+                ] },
+            { day: 6, title: 'Музей пельменя', items: ['10:30 — Музей пельменя', '11:00-13:00 — Обед-дегустация'] },
+            { day: 7, title: 'Таганай', items: ['09:00 — Визит-центр', '09:30-12:30 — Трекинг к Чёрной скале'] },
+            { day: 8, title: 'Таганай → Чебоксары', items: ['09:00 — Выезд', '19:00 — Прибытие в Чебоксары'] },
+            { day: 9, title: 'Чебоксары → Нижний Новгород', items: ['13:00-15:00 — Прогулка по Нижнему',
+                    '19:30 — Ужин в «Пяткинъ»'
+                ] },
+            { day: 10, title: 'Нижний Новгород → Южа', items: ['09:00 — Выезд', '12:00 — Прибытие в Южу! 🏠'] },
+        ];
+
+        function renderSchedule() {
+            const container = document.getElementById('schedule-container');
+            if (!container) return;
+            container.innerHTML = scheduleData.map(s => `
+            <div class="day-card">
+              <h3>День ${s.day}: ${s.title}</h3>
+              ${s.items.map(i => `<div class="timeline-item"><span>${i}</span></div>`).join('')}
+            </div>
+          `).join('');
+        }
+
+        // ============ CHECKLIST ============
+        const checklistData = [
+            { cat: '🚗 Для автомобиля', items: ['Запасное колесо, домкрат, инструменты',
+                    'Огнетушитель, знак аварийной остановки', 'Видеорегистратор, зарядные устройства',
+                    'Навигатор с офлайн-картами (Яндекс + Maps.me)'
+                ] },
+            { cat: '⛺ Для кемпинга + кухня', items: ['Палатка 3-местная + тент от дождя',
+                    'Спальники (t° комфорта +5°C)', 'Пенки/карематы', 'Газовая горелка + баллоны (4 шт)',
+                    'Посуда: котелок, сковорода, кружки, ложки, нож, доска', 'Фонарики налобные + батарейки',
+                    'Пауэрбанк 20 000 мАч', 'Репелленты от комаров', 'Аптечка + мусорные пакеты'
+                ] },
+            { cat: '👕 Одежда', items: ['Тёплая кофта/флис (ночи +5...+12°С!)', 'Ветровка/дождевик',
+                    'Треккинговая обувь + сменная для лагеря', 'Купальник/плавки + полотенце',
+                    'Головной убор (кепка + шапка)'
+                ] },
+            { cat: '📄 Документы', items: ['Паспорта, полис ОМС', 'Водительские права, СТС, ОСАГО',
+                    'Наличные ~15 000 ₽ (терминалы есть не везде)'
+                ] },
+            { cat: '🍔 Продукты', items: ['Яйца, бекон, ветчина, сосиски', 'Овощи: помидоры, огурцы, лук, чеснок',
+                    'Макароны, рис, гречка', 'Хлеб/лаваш', 'Масло растительное, специи', 'Чай, кофе, сахар',
+                    'Яблоки, орехи, сухофрукты, шоколад'
+                ] },
+        ];
+
+        function renderChecklist() {
+            const container = document.getElementById('checklist-accordion');
+            if (!container) return;
+            container.innerHTML = checklistData.map((c, i) => `
+            <div class="accordion-item">
+              <button class="accordion-header" data-index="${i}">
+                <span>${c.cat}</span><span>▼</span>
+              </button>
+              <div class="accordion-body" id="acc-body-${i}">
+                ${c.items.map(item => `<label><input type="checkbox"> ${item}</label>`).join('')}
+              </div>
+            </div>
+          `).join('');
+
+            document.querySelectorAll('.accordion-header').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const body = document.getElementById('acc-body-' + btn.dataset.index);
+                    const isOpen = body.classList.contains('open');
+                    document.querySelectorAll('.accordion-body').forEach(b => b.classList
+                        .remove('open'));
+                    if (!isOpen) body.classList.add('open');
+                });
+            });
+        }
+
+        // ============ ALBUMS (IndexedDB) ============
+        const DB_NAME = 'TurgoyakTripAlbums';
+        const DB_VERSION = 1;
+        let db;
+
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('albums')) {
+                        db.createObjectStore('albums', { keyPath: 'id' });
+                    }
+                    if (!db.objectStoreNames.contains('photos')) {
+                        const photoStore = db.createObjectStore('photos', { keyPath: 'id',
+                            autoIncrement: true });
+                        photoStore.createIndex('albumId', 'albumId', { unique: false });
+                    }
+                };
+                request.onsuccess = (e) => { db = e.target.result;
+                    resolve(db); };
+                request.onerror = (e) => { reject(e); };
+            });
+        }
+
+        async function getAlbums() {
+            if (!db) await openDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction('albums', 'readonly');
+                const store = tx.objectStore('albums');
+                const request = store.getAll();
+                request.onsuccess = () => resolve(request.result || []);
+                request.onerror = () => resolve([]);
+            });
+        }
+
+        async function saveAlbum(album) {
+            if (!db) await openDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction('albums', 'readwrite');
+                const store = tx.objectStore('albums');
+                store.put(album);
+                tx.oncomplete = () => resolve();
+            });
+        }
+
+        async function getPhotos(albumId) {
+            if (!db) await openDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction('photos', 'readonly');
+                const store = tx.objectStore('photos');
+                const index = store.index('albumId');
+                const request = index.getAll(Number(albumId));
+                request.onsuccess = () => resolve(request.result || []);
+                request.onerror = () => resolve([]);
+            });
+        }
+
+        async function savePhoto(photo) {
+            if (!db) await openDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction('photos', 'readwrite');
+                const store = tx.objectStore('photos');
+                store.add(photo);
+                tx.oncomplete = () => resolve();
+            });
+        }
+
+        async function deletePhoto(photoId) {
+            if (!db) await openDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction('photos', 'readwrite');
+                const store = tx.objectStore('photos');
+                store.delete(Number(photoId));
+                tx.oncomplete = () => resolve();
+            });
+        }
+
+        async function createAlbumsForDays() {
+            const existing = await getAlbums();
+            if (existing.length >= 10) {
+                alert('Альбомы уже созданы!');
+                return;
+            }
+            for (let i = 1; i <= 10; i++) {
+                const album = {
+                    id: i,
+                    name: `День ${i}`,
+                    day: i,
+                    coverImage: null,
+                    photoCount: 0,
+                    createdAt: new Date().toISOString(),
+                };
+                await saveAlbum(album);
+            }
+            await renderAlbums();
+        }
+
+        async function renderAlbums() {
+            const grid = document.getElementById('albums-grid');
+            if (!grid) return;
+            const albums = await getAlbums();
+            if (albums.length === 0) {
+                grid.innerHTML =
+                    '<p style="text-align:center;color:var(--stone);grid-column:1/-1;">Нажмите «Создать альбомы по дням», чтобы начать</p>';
+                return;
+            }
+            albums.sort((a, b) => a.day - b.day);
+            grid.innerHTML = '';
+            for (const album of albums) {
+                const photos = await getPhotos(album.id);
+                const coverSrc = photos.length > 0 ? photos[0].imageData :
+                    'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="180"%3E%3Crect fill="%23e8e4d9" width="200" height="180"/%3E%3Ctext x="100" y="95" text-anchor="middle" fill="%236C757D" font-size="14"%3EНет фото%3C/text%3E%3C/svg%3E';
+                const card = document.createElement('div');
+                card.className = 'album-card';
+                card.innerHTML = `
+              <img src="${coverSrc}" alt="${album.name}" class="album-cover" onerror="imgFallback(this)" loading="lazy">
+              <div class="album-info">
+                <h4>${album.name}</h4>
+                <div class="count">📷 ${photos.length} фото</div>
+              </div>
+            `;
+                card.addEventListener('click', () => openAlbumModal(album));
+                grid.appendChild(card);
+            }
+        }
+
+        let currentAlbumId = null;
+
+        function openAlbumModal(album) {
+            currentAlbumId = album.id;
+            document.getElementById('album-modal-title').textContent = album.name;
+            document.getElementById('album-modal').style.display = 'flex';
+            loadAlbumPhotos(album.id);
+        }
+
+        async function loadAlbumPhotos(albumId) {
+            const grid = document.getElementById('album-photos-grid');
+            const photos = await getPhotos(albumId);
+            grid.innerHTML = '';
+            photos.forEach(photo => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'photo-thumb-wrapper';
+                wrapper.innerHTML = `
+              <img src="${photo.imageData}" alt="Фото" loading="lazy" onclick="openLightbox('${photo.id}')">
+              <button class="delete-photo-btn" onclick="event.stopPropagation();removePhoto(${photo.id}, ${albumId})">✕</button>
+            `;
+                grid.appendChild(wrapper);
+            });
+            if (photos.length === 0) {
+                grid.innerHTML =
+                    '<p style="color:var(--stone);grid-column:1/-1;text-align:center;">Перетащите фото в зону выше</p>';
+            }
+            window._currentAlbumPhotos = photos;
+        }
+
+        async function removePhoto(photoId, albumId) {
+            if (!confirm('Удалить это фото?')) return;
+            await deletePhoto(photoId);
+            await loadAlbumPhotos(albumId);
+            await renderAlbums();
+        }
+
+        // Lightbox
+        let lbPhotos = [];
+        let lbIndex = 0;
+
+        function openLightbox(photoId) {
+            lbPhotos = window._currentAlbumPhotos || [];
+            lbIndex = lbPhotos.findIndex(p => p.id == photoId);
+            if (lbIndex < 0) lbIndex = 0;
+            showLightboxImage();
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function showLightboxImage() {
+            if (lbPhotos.length === 0) return;
+            const photo = lbPhotos[lbIndex];
+            document.getElementById('lb-img').src = photo.imageData;
+            document.getElementById('lb-counter').textContent = `Фото ${lbIndex + 1} из ${lbPhotos.length}`;
+        }
+
+        document.getElementById('lb-close').addEventListener('click', () => {
+            document.getElementById('lightbox').style.display = 'none';
+        });
+        document.getElementById('lb-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (lbPhotos.length === 0) return;
+            lbIndex = (lbIndex - 1 + lbPhotos.length) % lbPhotos.length;
+            showLightboxImage();
+        });
+        document.getElementById('lb-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (lbPhotos.length === 0) return;
+            lbIndex = (lbIndex + 1) % lbPhotos.length;
+            showLightboxImage();
+        });
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) this.style.display = 'none';
+        });
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('lightbox').style.display === 'flex') {
+                if (e.key === 'Escape') document.getElementById('lightbox').style.display = 'none';
+                if (e.key === 'ArrowLeft') document.getElementById('lb-prev').click();
+                if (e.key === 'ArrowRight') document.getElementById('lb-next').click();
+            }
+        });
+
+        // Album modal
+        document.getElementById('album-modal-close').addEventListener('click', () => {
+            document.getElementById('album-modal').style.display = 'none';
+            currentAlbumId = null;
+            renderAlbums();
+        });
+        document.getElementById('album-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                currentAlbumId = null;
+                renderAlbums();
+            }
+        });
+
+        // Upload zone
+        const uploadZone = document.getElementById('album-upload-zone');
+        const fileInput = document.getElementById('album-file-input');
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => { e.preventDefault();
+            uploadZone.classList.add('dragover'); });
+        uploadZone.addEventListener('dragleave', () => { uploadZone.classList.remove('dragover'); });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+        fileInput.addEventListener('change', () => { handleFiles(fileInput.files);
+            fileInput.value = ''; });
+
+        async function handleFiles(files) {
+            if (!currentAlbumId) return;
+            for (const file of files) {
+                if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                    alert('Только изображения (jpg, png, webp)! Пропущено: ' + file.name);
+                    continue;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Файл больше 5MB: ' + file.name);
+                    continue;
+                }
+                const reader = new FileReader();
+                await new Promise((resolve) => {
+                    reader.onload = async (e) => {
+                        await savePhoto({
+                            albumId: currentAlbumId,
+                            imageData: e.target.result,
+                            caption: file.name,
+                            uploadedAt: new Date().toISOString(),
+                        });
+                        resolve();
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+            await loadAlbumPhotos(currentAlbumId);
+            await renderAlbums();
+        }
+
+        // Export / Import
+        document.getElementById('export-albums-btn').addEventListener('click', async () => {
+            const albums = await getAlbums();
+            const allPhotos = [];
+            for (const album of albums) {
+                const photos = await getPhotos(album.id);
+                allPhotos.push({ album, photos });
+            }
+            const json = JSON.stringify(allPhotos, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'turgoyak-albums.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('import-albums-btn').addEventListener('click', () => {
+            document.getElementById('import-file-input').click();
+        });
+        document.getElementById('import-file-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async (ev) => {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    if (!db) await openDB();
+                    const txAlbums = db.transaction('albums', 'readwrite');
+                    const txPhotos = db.transaction('photos', 'readwrite');
+                    const albumStore = txAlbums.objectStore('albums');
+                    const photoStore = txPhotos.objectStore('photos');
+                    for (const item of data) {
+                        albumStore.put(item.album);
+                        for (const photo of item.photos) {
+                            photoStore.put(photo);
+                        }
+                    }
+                    await Promise.all([
+                        new Promise(r => { txAlbums.oncomplete = r; }),
+                        new Promise(r => { txPhotos.oncomplete = r; }),
+                    ]);
+                    alert('Импорт завершён!');
+                    await renderAlbums();
+                } catch (err) {
+                    alert('Ошибка импорта: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        });
+
+        document.getElementById('create-albums-btn').addEventListener('click', createAlbumsForDays);
+
+        // ============ INIT ============
+        async function initAll() {
+            renderDays();
+            renderAttractions();
+            renderSchedule();
+            renderChecklist();
+            await openDB();
+            await renderAlbums();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            initAll();
+        });
+
+        // Scroll animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.animationPlayState = 'paused';
+                section.style.opacity = '0';
+                observer.observe(section);
+                setTimeout(() => {
+                    section.style.animationPlayState = 'running';
+                    section.style.opacity = '1';
+                }, 300);
+            });
+        }
+        window.addEventListener('load', initScrollAnimations);
+        console.log('🌲 Тургояк 2024 — сайт готов! Приятного путешествия!');
+    </script>
+</body>
+</html>
