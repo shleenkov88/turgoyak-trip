@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Путешествие на озеро Тургояк — 10-дневный автопробег по маршруту Южа → Тургояк → Южа. Природа Урала, скалы, пещеры, остров Веры и гастрономические открытия.">
+    <meta name="keywords" content="Тургояк, путешествие, Урал, автопробег, озеро Тургояк, маршрут, кемпинг, Таганай, Притёсы, остров Веры">
+    <meta name="author" content="Андрей, Наташа, Ира">
+    <meta property="og:title" content="Путешествие на озеро Тургояк — 10 дней приключений">
+    <meta property="og:description" content="2 650 км по Уралу: кристально чистое озеро, древние мегалиты, пещеры и горы.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="https://placehold.co/1200x630?text=Тургояк+2026">
+    <title>Путешествие на озеро Тургояк | 10 дней | Южа → Тургояк → Южа</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1B4332;
+            --primary-light: #2D6A4F;
+            --secondary: #D4A373;
+            --secondary-light: #E9C46A;
+            --accent: #BC6C25;
+            --accent-hover: #9A561F;
+            --bg: #FEFAE0;
+            --bg-card: #FFFFFF;
+            --bg-section: #F1FAEE;
+            --text: #2B2D42;
+            --text-light: #555B6E;
+            --text-muted: #8D99AE;
+            --border: #E0D8C8;
+            --shadow-sm: 0 2px 8px rgba(27,67,50,0.06);
+            --shadow: 0 4px 20px rgba(27,67,50,0.1);
+            --shadow-lg: 0 12px 40px rgba(27,67,50,0.15);
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --header-height: 70px;
+            --max-width: 1280px;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth;scroll-padding-top:var(--header-height);font-size:16px}
+        body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+        h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600;line-height:1.3;color:var(--primary)}
+        h2{font-size:2.2rem;margin-bottom:0.5rem;position:relative;display:inline-block}
+        h2::after{content:'';position:absolute;bottom:-6px;left:0;width:60%;height:3px;background:var(--accent);border-radius:2px}
+        h3{font-size:1.5rem;color:var(--primary)}
+        .section-subtitle{color:var(--text-light);font-size:1.05rem;margin-bottom:2.5rem;font-weight:400}
+        a{color:var(--accent);text-decoration:none;transition:var(--transition)}
+        a:hover{color:var(--accent-hover)}
+        img{max-width:100%;height:auto;display:block}
+
+        .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(254,250,224,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--header-height);display:flex;align-items:center;transition:var(--transition)}
+        .header.scrolled{box-shadow:var(--shadow)}
+        .header__inner{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+        .header__logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--primary);white-space:nowrap;display:flex;align-items:center;gap:0.5rem}
+        .header__logo i{color:var(--accent);font-size:1.4rem}
+        .header__nav{display:flex;gap:0.3rem;list-style:none;flex-wrap:wrap;align-items:center}
+        .header__nav a{display:block;padding:0.45rem 0.8rem;border-radius:20px;font-size:0.875rem;font-weight:500;color:var(--text);transition:var(--transition);white-space:nowrap}
+        .header__nav a:hover,.header__nav a.active{background:var(--primary);color:#fff}
+        .header__burger{display:none;background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--primary);padding:0.3rem}
+
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,rgba(27,67,50,0.85) 0%,rgba(27,67,50,0.6) 40%,rgba(188,108,37,0.45) 100%),url('turgoyak_lake.jpg.jpg') center/cover no-repeat;position:relative;padding:6rem 1.5rem 3rem;color:#fff}
+        .hero__content{max-width:800px;z-index:1;animation:fadeInUp 1s ease-out}
+        .hero__badge{display:inline-block;background:var(--accent);color:#fff;padding:0.4rem 1.2rem;border-radius:20px;font-weight:600;font-size:0.9rem;letter-spacing:0.04em;margin-bottom:1.5rem}
+        .hero h1{font-size:3.5rem;color:#fff;margin-bottom:0.8rem;text-shadow:0 2px 12px rgba(0,0,0,0.3);line-height:1.2}
+        .hero h1::after{display:none}
+        .hero__subtitle{font-size:1.2rem;font-weight:300;opacity:0.95;margin-bottom:2rem;line-height:1.6}
+        .hero__stats{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;margin-bottom:2rem}
+        .hero__stat{background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:var(--radius);padding:1rem 1.5rem;min-width:110px;text-align:center}
+        .hero__stat-value{font-size:2rem;font-weight:700;font-family:'Playfair Display',serif}
+        .hero__stat-label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;opacity:0.85}
+        .hero__scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;cursor:pointer;font-size:2rem;color:#fff;opacity:0.8;transition:var(--transition);z-index:1}
+
+        .section{padding:5rem 1.5rem;max-width:var(--max-width);margin:0 auto}
+        .section--alt{background:var(--bg-section);max-width:100%;padding-left:calc((100% - var(--max-width))/2 + 1.5rem);padding-right:calc((100% - var(--max-width))/2 + 1.5rem)}
+        .section-header{text-align:center;margin-bottom:3rem}
+        .section-header h2{display:inline-block}
+        .section-header h2::after{left:20%;width:60%}
+
+        .map-section{padding:3rem 1.5rem 5rem;max-width:var(--max-width);margin:0 auto}
+        .map-container{position:relative;width:100%;height:550px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:#e8e4d8}
+        .map-container>div{width:100%;height:100%}
+        .map-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg-card);z-index:2;transition:opacity 0.5s}
+        .map-loading.hidden{opacity:0;pointer-events:none}
+        .map-loading__spinner{width:50px;height:50px;border:4px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:1rem}
+        .map-legend{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;margin-top:1rem;font-size:0.85rem;color:var(--text-light)}
+        .map-legend span{display:flex;align-items:center;gap:0.4rem}
+        .map-legend-dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+        .map-legend-dot--overnight{background:#BC6C25}
+        .map-legend-dot--stop{background:#1B4332}
+        .map-legend-dot--start{background:#E63946}
+
+        .attractions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.8rem}
+        .attraction-card{background:var(--bg-card);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);transition:var(--transition);display:flex;flex-direction:column;border:1px solid var(--border)}
+        .attraction-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+        .attraction-card__img{width:100%;height:220px;object-fit:cover;background:#d5cfc0}
+        .attraction-card__body{padding:1.4rem;flex:1;display:flex;flex-direction:column;gap:0.6rem}
+        .attraction-card__tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+        .tag{display:inline-block;padding:0.25rem 0.7rem;border-radius:15px;font-size:0.75rem;font-weight:600;letter-spacing:0.03em;background:#E8F5E9;color:#2D6A4F}
+        .tag--history{background:#FFF3E0;color:#BC6C25}
+        .tag--nature{background:#E8F5E9;color:#2D6A4F}
+        .tag--gastro{background:#FCE4EC;color:#C62828}
+        .tag--mystic{background:#EDE7F6;color:#4527A0}
+        .tag--landmark{background:#E3F2FD;color:#1565C0}
+        .attraction-card__title{font-size:1.25rem;margin:0}
+        .attraction-card__desc{font-size:0.9rem;color:var(--text-light);flex:1}
+        .attraction-card__time{font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;gap:0.3rem}
+        .attraction-card__actions{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.3rem}
+        .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.55rem 1.1rem;border-radius:25px;font-weight:600;font-size:0.85rem;cursor:pointer;transition:var(--transition);border:2px solid transparent;text-decoration:none;white-space:nowrap}
+        .btn--primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+        .btn--primary:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#fff}
+        .btn--outline{background:transparent;color:var(--primary);border-color:var(--primary)}
+        .btn--outline:hover{background:var(--primary);color:#fff}
+        .btn--sm{padding:0.35rem 0.8rem;font-size:0.78rem}
+
+        .accordion{display:flex;flex-direction:column;gap:0.8rem}
+        .accordion__item{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;transition:var(--transition);box-shadow:var(--shadow-sm)}
+        .accordion__item.active{box-shadow:var(--shadow);border-color:var(--secondary)}
+        .accordion__header{width:100%;background:none;border:none;padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--primary);text-align:left;gap:1rem;transition:var(--transition)}
+        .accordion__header:hover{background:#f9f7ef}
+        .accordion__header-icon{font-size:1.2rem;transition:var(--transition);color:var(--accent);flex-shrink:0}
+        .accordion__item.active .accordion__header-icon{transform:rotate(180deg)}
+        .accordion__day-badge{background:var(--primary);color:#fff;padding:0.25rem 0.7rem;border-radius:15px;font-size:0.8rem;font-family:'Open Sans',sans-serif;font-weight:600;flex-shrink:0}
+        .accordion__body{max-height:0;overflow:hidden;transition:max-height 0.45s ease,padding 0.45s ease}
+        .accordion__item.active .accordion__body{max-height:2000px}
+        .accordion__content{padding:0 1.5rem 1.5rem}
+        .timeline{position:relative;padding-left:2rem;border-left:2px dashed var(--secondary);margin-left:0.6rem}
+        .timeline__item{position:relative;margin-bottom:1.2rem;padding-left:1rem}
+        .timeline__item::before{content:'';position:absolute;left:-2.55rem;top:0.4rem;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
+        .timeline__time{font-weight:700;font-size:0.85rem;color:var(--accent);margin-bottom:0.1rem}
+        .timeline__title{font-weight:600;color:var(--primary);font-size:0.95rem}
+        .timeline__desc{font-size:0.85rem;color:var(--text-light)}
+        .day-meta{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;font-size:0.85rem;color:var(--text-muted)}
+        .day-expenses{background:#FFF8EC;border-radius:var(--radius-sm);padding:0.7rem 1rem;margin-top:1rem;font-weight:600;color:var(--accent);font-size:0.9rem}
+
+        .info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.8rem}
+        .info-card{background:var(--bg-card);border-radius:var(--radius-lg);padding:1.8rem;border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:var(--transition)}
+        .info-card:hover{box-shadow:var(--shadow)}
+        .info-card__icon{font-size:2.2rem;color:var(--accent);margin-bottom:0.8rem}
+        .info-card h4{margin-bottom:0.6rem}
+        .info-card ul{list-style:none;padding:0}
+        .info-card li{padding:0.3rem 0;font-size:0.9rem;color:var(--text-light);display:flex;align-items:flex-start;gap:0.5rem}
+        .info-card li i{color:var(--accent);margin-top:0.25rem;flex-shrink:0}
+        .budget-table{width:100%;border-collapse:collapse;margin-top:0.5rem}
+        .budget-table th,.budget-table td{padding:0.6rem 0.8rem;text-align:left;border-bottom:1px solid var(--border);font-size:0.9rem}
+        .budget-table th{background:#f9f7ef;font-weight:600;color:var(--primary)}
+        .budget-total{font-weight:700;color:var(--accent);font-size:1.1rem}
+
+        .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+        .gallery-item{border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;background:#d5cfc0;position:relative;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow-sm)}
+        .gallery-item:hover{transform:scale(1.03);box-shadow:var(--shadow-lg)}
+        .gallery-item img{width:100%;height:100%;object-fit:cover;transition:var(--transition)}
+        .gallery-item__caption{position:absolute;bottom:0;left:0;right:0;padding:1rem;background:linear-gradient(transparent,rgba(0,0,0,0.7));color:#fff;font-weight:500;font-size:0.9rem}
+
+        .contacts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+        .contact-card{background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border);text-align:center;transition:var(--transition)}
+        .contact-card:hover{box-shadow:var(--shadow)}
+        .contact-card__icon{font-size:2rem;color:var(--accent);margin-bottom:0.5rem}
+        .footer{background:var(--primary);color:#fff;text-align:center;padding:2rem 1.5rem;font-size:0.9rem}
+        .footer a{color:var(--secondary-light)}
+        .back-to-top{position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);opacity:0;transform:translateY(20px);pointer-events:none;transition:var(--transition);z-index:999}
+        .back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes bounce{0%,100%{transform:translateX(-50%)translateY(0)}50%{transform:translateX(-50%)translateY(12px)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .animate-on-scroll{opacity:0;transform:translateY(25px);transition:opacity 0.7s ease,transform 0.7s ease}
+        .animate-on-scroll.visible{opacity:1;transform:translateY(0)}
+
+        @media(max-width:768px){
+            .header__nav{position:fixed;top:var(--header-height);left:0;right:0;flex-direction:column;background:rgba(254,250,224,0.98);backdrop-filter:blur(12px);padding:1rem;max-height:0;overflow:hidden;transition:max-height 0.4s ease;border-bottom:1px solid var(--border)}
+            .header__nav.open{max-height:500px}
+            .header__burger{display:block}
+            .hero h1{font-size:2.2rem}
+            .attractions-grid{grid-template-columns:1fr}
+            .map-container{height:350px}
+            .gallery-grid{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header"><div class="header__inner"><a href="#hero" class="header__logo"><i class="fa-solid fa-mountain-sun"></i> Тургояк 2026</a><button class="header__burger" id="burgerBtn"><i class="fa-solid fa-bars"></i></button><nav><ul class="header__nav" id="mainNav"><li><a href="#map">Карта</a></li><li><a href="#attractions">Достопримечательности</a></li><li><a href="#schedule">Расписание</a></li><li><a href="#practical">Инфо</a></li><li><a href="#gallery">Галерея</a></li><li><a href="#contacts">Контакты</a></li></ul></nav></div></header>
+
+    <section class="hero" id="hero"><div class="hero__content"><span class="hero__badge">🚗 Автопутешествие из дома</span><h1>Путешествие на озеро Тургояк</h1><p class="hero__subtitle">Маршрут: Дом (Южа) → Тургояк → Дом (Южа)<br>Кристально чистая вода, сосны, горы</p><div class="hero__stats"><div class="hero__stat"><div class="hero__stat-value">10</div><div class="hero__stat-label">Дней</div></div><div class="hero__stat"><div class="hero__stat-value">2 650</div><div class="hero__stat-label">Км</div></div><div class="hero__stat"><div class="hero__stat-value">3</div><div class="hero__stat-label">Участника</div></div></div></div><div class="hero__scroll" id="heroScroll"><i class="fa-solid fa-chevron-down"></i></div></section>
+
+    <section class="map-section" id="map"><div class="section-header"><h2>Карта маршрута</h2></div><div class="map-container"><div class="map-loading" id="mapLoading"><div class="map-loading__spinner"></div><p>Загрузка карты…</p></div><div id="yandexMap"></div></div><div class="map-legend"><span><span class="map-legend-dot map-legend-dot--start"></span> Старт</span><span><span class="map-legend-dot map-legend-dot--overnight"></span> Ночевка</span><span><span class="map-legend-dot map-legend-dot--stop"></span> Остановка</span></div></section>
+
+    <section class="section" id="attractions"><div class="section-header"><h2>Достопримечательности</h2><p class="section-subtitle">Ключевые точки маршрута</p></div><div class="attractions-grid">
+        <article class="attraction-card"><img src="turgoyak_lake.jpg.jpg" class="attraction-card__img" alt="Озеро Тургояк"><div class="attraction-card__body"><div class="attraction-card__tags"><span class="tag tag--nature">Природа</span></div><h3>Озеро Тургояк</h3><p class="attraction-card__desc">Чистейшее озеро, прозрачность до 18 м. Идеальное место для кемпинга.</p><p class="attraction-card__time"><i class="fa-regular fa-clock"></i> Дни 4–7</p><div class="attraction-card__actions"><a href="https://yandex.ru/maps/?ll=60.0953,55.1692&z=13" class="btn btn--primary btn--sm">На карте</a></div></div></article>
+        <article class="attraction-card"><img src="pritesy.jpg.jpg" class="attraction-card__img" alt="Притёсы"><div class="attraction-card__body"><div class="attraction-card__tags"><span class="tag tag--nature">Скалы</span></div><h3>Большие Притёсы</h3><p class="attraction-card__desc">100-метровые скалы над рекой Ай.</p><p class="attraction-card__time">День 3</p></div></article>
+        <article class="attraction-card"><img src="sikiiaz.jpg.jpg" class="attraction-card__img" alt="Пещеры"><div class="attraction-card__body"><h3>Сикияз-Тамак</h3><p>43 пещеры, фонарик обязателен.</p></div></article>
+        <article class="attraction-card"><img src="ostrov_very.jpg.jpg" class="attraction-card__img" alt="Остров Веры"><h3>Остров Веры</h3></article>
+        <article class="attraction-card"><img src="museum_pelmen.jpg.jpg" class="attraction-card__img" alt="Музей пельменя"><h3>Музей пельменя</h3></article>
+        <article class="attraction-card"><img src="taganay.jpg.jpg" class="attraction-card__img" alt="Таганай"><h3>Таганай</h3></article>
+        <article class="attraction-card"><img src="Чебоксары.jpg.jpg" class="attraction-card__img" alt="Чебоксары"><h3>Чебоксары</h3></article>
+    </div></section>
+
+    <section class="section section--alt" id="schedule"><div class="section-header"><h2>Расписание</h2></div><div class="accordion">
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 1</span> Южа → Чебоксары <i class="fa-solid fa-chevron-down"></i></button><div class="accordion__body"><div class="accordion__content"><div class="day-meta">350 км | 5 ч</div><div class="timeline"><div class="timeline__item"><div class="timeline__time">08:00</div><div class="timeline__title">Выезд из дома</div></div></div></div></div></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 2</span> Чебоксары → Сатка</button><div class="accordion__body">600 км, стела Европа-Азия</div></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 3</span> Притёсы, пещеры</button><div class="accordion__body">Активный день</div></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 4</span> Заезд на Тургояк</button></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 5</span> Остров Веры</button></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 6</span> Музей пельменя</button></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 7</span> Таганай</button></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 8</span> → Чебоксары</button></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 9</span> → Нижний Новгород</button></div>
+        <div class="accordion__item"><button class="accordion__header"><span class="accordion__day-badge">День 10</span> → Дом 🏁</button></div>
+    </div></section>
+
+    <section class="section" id="practical"><div class="section-header"><h2>Инфо</h2></div><div class="info-grid"><div class="info-card"><h4>Бюджет</h4><p>78 640 ₽ на троих</p></div></div></section>
+
+    <section class="section" id="gallery"><div class="section-header"><h2>Галерея</h2></div><div class="gallery-grid">
+        <div class="gallery-item"><img src="turgoyak_lake.jpg.jpg"><div class="gallery-item__caption">Озеро</div></div>
+        <div class="gallery-item"><img src="pritesy.jpg.jpg"><div class="gallery-item__caption">Притёсы</div></div>
+        <div class="gallery-item"><img src="sikiiaz.jpg.jpg"><div class="gallery-item__caption">Пещеры</div></div>
+    </div></section>
+
+    <section class="section" id="contacts"><div class="section-header"><h2>Контакты</h2></div><div class="contacts-grid"><div class="contact-card"><div class="contact-card__icon"><i class="fa-solid fa-phone"></i></div><h4>Экстренные</h4><p>112</p></div></div></section>
+
+    <footer class="footer"><p>Путешествие на Тургояк · 2026</p></footer>
+    <button class="back-to-top" id="backToTop"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=7003735c-0843-432a-a415-539663a3dd84&lang=ru_RU"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.getElementById('burgerBtn');
+            const nav = document.getElementById('mainNav');
+            burger.addEventListener('click', () => nav.classList.toggle('open'));
+
+            window.addEventListener('scroll', () => {
+                document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+                document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 600);
+            });
+
+            document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+            document.getElementById('heroScroll').addEventListener('click', () => document.getElementById('map').scrollIntoView({behavior:'smooth'}));
+
+            // Accordion
+            document.querySelectorAll('.accordion__header').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.parentElement;
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Yandex Map
+            if (typeof ymaps !== 'undefined') {
+                ymaps.ready(() => {
+                    document.getElementById('mapLoading').classList.add('hidden');
+                    const map = new ymaps.Map('yandexMap', {
+                        center: [55.8, 50.5], zoom: 6,
+                        controls: ['zoomControl']
+                    });
+                    const coords = [[56.5833,42.0167],[56.1333,47.2500],[55.1692,60.0953],[56.5833,42.0167]];
+                    map.geoObjects.add(new ymaps.Polyline(coords, {}, {strokeColor:'#BC6C25',strokeWidth:4}));
+                    new ymaps.Placemark([56.5833,42.0167],{hintContent:'Дом'},{preset:'islands#redCircleDotIcon'}).add(map);
+                    new ymaps.Placemark([55.1692,60.0953],{hintContent:'Тургояк'},{preset:'islands#greenCircleDotIcon'}).add(map);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
