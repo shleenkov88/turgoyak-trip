@@ -165,7 +165,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--text-dark); line-height: 
   display: flex; align-items: center; justify-content: center; overflow: hidden;
   background: linear-gradient(135deg, #0a2e1a 0%, #1B5E38 30%, #2D8A5E 60%, #0055AA 100%);
 }
-.hero-bg { position: absolute; inset: 0; background-image: url('./top image.jpg'); background-size: cover; background-position: center; background-attachment: fixed; mix-blend-mode: overlay; opacity: 0.35; filter: saturate(1.4); animation: bgParallax 10s ease-in-out infinite alternate; }
+.hero-bg { position: absolute; inset: 0; background-image: url('./top-image.jpg'); background-size: cover; background-position: center; background-attachment: fixed; mix-blend-mode: overlay; opacity: 0.35; filter: saturate(1.4); animation: bgParallax 10s ease-in-out infinite alternate; }
 @keyframes bgParallax { 0%{transform:scale(1) translate(0,0)} 100%{transform:scale(1.05) translate(-2%,-3%)} }
 .hero-particles { position: absolute; inset: 0; overflow: hidden; }
 .particle { position: absolute; border-radius: 50%; animation: floatParticle linear infinite; background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(116,242,181,0.4)); }
@@ -474,6 +474,42 @@ section { position: relative; padding: 6rem 1.5rem; }
     padding: 1.5rem;
     box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     gap: 0.3rem;
+    /* 📱 ФИКС ШАПКИ для мобильных — корректное отображение логотипа */
+@media (max-width: 768px) {
+  /* Гарантированный фон для хедера */
+  .header {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-bottom: 2px solid rgba(45, 138, 94, 0.2) !important;
+  }
+  
+  /* Фикс для SVG-логотипа: резервный цвет + отключение фильтра */
+  .logo-icon {
+    filter: none !important; /* Убираем drop-shadow, который может «плыть» */
+    background: linear-gradient(135deg, var(--forest-bright), var(--forest)) !important;
+    border-radius: 12px;
+    padding: 4px;
+  }
+  
+  /* Если градиент в SVG не прогрузился — показываем резервный цвет */
+  .logo-icon polygon {
+    fill: var(--forest-bright) !important;
+  }
+  
+  /* Улучшаем читаемость текста логотипа */
+  .logo-text {
+    font-size: 1.1rem !important;
+    color: var(--forest-dark) !important;
+  }
+  .logo-subtext {
+    font-size: 0.65rem !important;
+    color: var(--forest) !important;
+  }
+  
+  /* Фикс для кнопки меню на тёмных темах */
+  .mobile-toggle span {
+    background: var(--forest-dark) !important;
+  }
+}
   }
   .mobile-toggle { display: flex; }
   .hero { min-height: 650px; }
