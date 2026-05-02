@@ -561,6 +561,50 @@ section { position: relative; padding: 6rem 1.5rem; }
   .day-content { max-height: none !important; }
   section { padding: 2rem 0; }
 }
+  /* 📱 ФИКС НАЛОЖЕНИЯ ШАПКИ НА КОНТЕНТ */
+@media (max-width: 768px) {
+  /* Гарантированно белый фон шапки */
+  .header {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+  }
+  
+  /* Фикс логотипа — убираем наложение текста */
+  .logo {
+    gap: 8px !important;
+  }
+  .logo-text {
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+  .logo-subtext {
+    font-size: 0.6rem !important;
+    letter-spacing: 1px !important;
+  }
+  .logo-icon {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+  }
+  
+  /* Отступ для hero-секции чтобы контент не заезжал под шапку */
+  .hero {
+    padding-top: 80px !important;
+  }
+  
+  /* Фикс кнопки меню */
+  .mobile-toggle {
+    padding: 8px !important;
+  }
+  .mobile-toggle span {
+    width: 24px !important;
+    height: 3px !important;
+    background: #1B5E38 !important;
+  }
+}
 </style>
 </head>
 <body>
