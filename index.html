@@ -604,6 +604,38 @@ section { position: relative; padding: 6rem 1.5rem; }
     height: 3px !important;
     background: #1B5E38 !important;
   }
+  /* 📱 ФИКС ОТСТУПА ДЛЯ МОБИЛЬНЫХ */
+@media (max-width: 768px) {
+  /* Отступ чтобы контент не заезжал под фиксированную шапку */
+  body {
+    padding-top: 80px !important;
+  }
+  .hero {
+    padding-top: 20px !important;
+    min-height: calc(100vh - 80px) !important;
+  }
+  
+  /* Фикс логотипа - убираем наложение */
+  .logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: nowrap !important;
+  }
+  .logo-icon {
+    flex-shrink: 0 !important;
+    width: 45px !important;
+    height: 45px !important;
+  }
+  
+  /* Принудительные цвета */
+  .header {
+    background: #ffffff !important;
+  }
+  .logo-text, .logo-subtext {
+    color: #1B5E38 !important;
+  }
+}
 }
 </style>
 </head>
